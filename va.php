@@ -56,9 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $feed = Doku_Api::doGeneratePaycode($dataPayment);
 
     if($feed->res_response_code == '0000'){
-        echo 'GENERATE SUCCESS -- ';
+        $feed['message_data'] = 'GENERATE SUCCESS -- ';
+        $feed['words'] = $words;
+        $feed['session_id'] = $dataPayment['req_session_id'];
     }else{
-        echo 'GENERATE FAILED -- ';
+        $feed['message_data'] = 'GENERATE FAILED -- ';
     }
     
     $response = array_merge($response, array('status' => 1, 'message' => "Anda diperkenankan akses", 'data' => $feed));
